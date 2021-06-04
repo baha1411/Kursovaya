@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Хранилище fitness_kpModelContainer" CdmEntityContainer="fitness_kpEntities">
+    <EntitySetMapping Name="Product">
+      <EntityTypeMapping TypeName="fitness_kpModel.Product">
+        <MappingFragment StoreEntitySet="Product">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Count" ColumnName="Count" />
+          <ScalarProperty Name="Price" ColumnName="Price" />
+          <ScalarProperty Name="ProductTypeid" ColumnName="ProductTypeid" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="photo" ColumnName="photo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductProvaiderOrder">
+      <EntityTypeMapping TypeName="fitness_kpModel.ProductProvaiderOrder">
+        <MappingFragment StoreEntitySet="ProductProvaiderOrder">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="ProvaiderOrderid" ColumnName="ProvaiderOrderid" />
+          <ScalarProperty Name="Productidid" ColumnName="Productidid" />
+          <ScalarProperty Name="price" ColumnName="price" />
+          <ScalarProperty Name="count" ColumnName="count" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProductType">
+      <EntityTypeMapping TypeName="fitness_kpModel.ProductType">
+        <MappingFragment StoreEntitySet="ProductType">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="Provaider">
+      <EntityTypeMapping TypeName="fitness_kpModel.Provaider">
+        <MappingFragment StoreEntitySet="Provaider">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Units" ColumnName="Units" />
+          <ScalarProperty Name="Logo" ColumnName="Logo" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ProvaiderOrder">
+      <EntityTypeMapping TypeName="fitness_kpModel.ProvaiderOrder">
+        <MappingFragment StoreEntitySet="ProvaiderOrder">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="Number" ColumnName="Number" />
+          <ScalarProperty Name="Provaiderid" ColumnName="Provaiderid" />
+          <ScalarProperty Name="Data" ColumnName="Data" />
+          <ScalarProperty Name="total" ColumnName="total" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

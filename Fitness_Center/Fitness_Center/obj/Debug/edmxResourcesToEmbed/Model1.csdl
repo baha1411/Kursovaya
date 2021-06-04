@@ -1,0 +1,130 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="fitness_kpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Product">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Count" Type="Double" />
+    <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="ProductTypeid" Type="Int32" Nullable="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ProductType" Relationship="Self.FK_Product_ProductType" FromRole="Product" ToRole="ProductType" />
+    <NavigationProperty Name="ProductProvaiderOrder" Relationship="Self.FK_ProductProvaiderOrder_Product" FromRole="Product" ToRole="ProductProvaiderOrder" />
+  </EntityType>
+  <EntityType Name="ProductProvaiderOrder">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProvaiderOrderid" Type="Int32" />
+    <Property Name="Productidid" Type="Int32" />
+    <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+    <Property Name="count" Type="Double" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_ProductProvaiderOrder_Product" FromRole="ProductProvaiderOrder" ToRole="Product" />
+    <NavigationProperty Name="ProvaiderOrder" Relationship="Self.FK_ProductProvaiderOrder_ProvaiderOrder" FromRole="ProductProvaiderOrder" ToRole="ProvaiderOrder" />
+  </EntityType>
+  <EntityType Name="ProductType">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Product" Relationship="Self.FK_Product_ProductType" FromRole="ProductType" ToRole="Product" />
+  </EntityType>
+  <EntityType Name="Provaider">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Units" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <Property Name="Logo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="ProvaiderOrder" Relationship="Self.FK_ProvaiderOrder_Provaider" FromRole="Provaider" ToRole="ProvaiderOrder" />
+  </EntityType>
+  <EntityType Name="ProvaiderOrder">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Number" Type="Int32" />
+    <Property Name="Provaiderid" Type="Int32" />
+    <Property Name="Data" Type="DateTime" Precision="0" />
+    <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
+    <NavigationProperty Name="ProductProvaiderOrder" Relationship="Self.FK_ProductProvaiderOrder_ProvaiderOrder" FromRole="ProvaiderOrder" ToRole="ProductProvaiderOrder" />
+    <NavigationProperty Name="Provaider" Relationship="Self.FK_ProvaiderOrder_Provaider" FromRole="ProvaiderOrder" ToRole="Provaider" />
+  </EntityType>
+  <Association Name="FK_Product_ProductType">
+    <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+    <End Role="Product" Type="Self.Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProductType">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="Product">
+        <PropertyRef Name="ProductTypeid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductProvaiderOrder_Product">
+    <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+    <End Role="ProductProvaiderOrder" Type="Self.ProductProvaiderOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Product">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ProductProvaiderOrder">
+        <PropertyRef Name="Productidid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProductProvaiderOrder_ProvaiderOrder">
+    <End Role="ProvaiderOrder" Type="Self.ProvaiderOrder" Multiplicity="0..1" />
+    <End Role="ProductProvaiderOrder" Type="Self.ProductProvaiderOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="ProvaiderOrder">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ProductProvaiderOrder">
+        <PropertyRef Name="ProvaiderOrderid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_ProvaiderOrder_Provaider">
+    <End Role="Provaider" Type="Self.Provaider" Multiplicity="0..1" />
+    <End Role="ProvaiderOrder" Type="Self.ProvaiderOrder" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Provaider">
+        <PropertyRef Name="id" />
+      </Principal>
+      <Dependent Role="ProvaiderOrder">
+        <PropertyRef Name="Provaiderid" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="fitness_kpEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Product" EntityType="Self.Product" />
+    <EntitySet Name="ProductProvaiderOrder" EntityType="Self.ProductProvaiderOrder" />
+    <EntitySet Name="ProductType" EntityType="Self.ProductType" />
+    <EntitySet Name="Provaider" EntityType="Self.Provaider" />
+    <EntitySet Name="ProvaiderOrder" EntityType="Self.ProvaiderOrder" />
+    <AssociationSet Name="FK_Product_ProductType" Association="Self.FK_Product_ProductType">
+      <End Role="ProductType" EntitySet="ProductType" />
+      <End Role="Product" EntitySet="Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductProvaiderOrder_Product" Association="Self.FK_ProductProvaiderOrder_Product">
+      <End Role="Product" EntitySet="Product" />
+      <End Role="ProductProvaiderOrder" EntitySet="ProductProvaiderOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProductProvaiderOrder_ProvaiderOrder" Association="Self.FK_ProductProvaiderOrder_ProvaiderOrder">
+      <End Role="ProvaiderOrder" EntitySet="ProvaiderOrder" />
+      <End Role="ProductProvaiderOrder" EntitySet="ProductProvaiderOrder" />
+    </AssociationSet>
+    <AssociationSet Name="FK_ProvaiderOrder_Provaider" Association="Self.FK_ProvaiderOrder_Provaider">
+      <End Role="Provaider" EntitySet="Provaider" />
+      <End Role="ProvaiderOrder" EntitySet="ProvaiderOrder" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

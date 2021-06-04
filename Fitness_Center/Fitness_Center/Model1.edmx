@@ -1,0 +1,341 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище fitness_kpModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="Count" Type="float" />
+          <Property Name="Price" Type="money" />
+          <Property Name="ProductTypeid" Type="int" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="100" />
+          <Property Name="photo" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="ProductProvaiderOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProvaiderOrderid" Type="int" />
+          <Property Name="Productidid" Type="int" />
+          <Property Name="price" Type="money" />
+          <Property Name="count" Type="float" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Provaider">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Title" Type="nvarchar" MaxLength="100" />
+          <Property Name="Units" Type="nvarchar" MaxLength="100" />
+          <Property Name="Logo" Type="nvarchar" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="ProvaiderOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Number" Type="int" />
+          <Property Name="Provaiderid" Type="int" />
+          <Property Name="Data" Type="date" />
+          <Property Name="total" Type="money" />
+        </EntityType>
+        <Association Name="FK_Product_ProductType">
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductTypeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductProvaiderOrder_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductProvaiderOrder" Type="Self.ProductProvaiderOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProductProvaiderOrder">
+              <PropertyRef Name="Productidid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductProvaiderOrder_ProvaiderOrder">
+          <End Role="ProvaiderOrder" Type="Self.ProvaiderOrder" Multiplicity="0..1" />
+          <End Role="ProductProvaiderOrder" Type="Self.ProductProvaiderOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProvaiderOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProductProvaiderOrder">
+              <PropertyRef Name="ProvaiderOrderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProvaiderOrder_Provaider">
+          <End Role="Provaider" Type="Self.Provaider" Multiplicity="0..1" />
+          <End Role="ProvaiderOrder" Type="Self.ProvaiderOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provaider">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProvaiderOrder">
+              <PropertyRef Name="Provaiderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище fitness_kpModelContainer">
+          <EntitySet Name="Product" EntityType="Self.Product" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductProvaiderOrder" EntityType="Self.ProductProvaiderOrder" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductType" EntityType="Self.ProductType" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Provaider" EntityType="Self.Provaider" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProvaiderOrder" EntityType="Self.ProvaiderOrder" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Product_ProductType" Association="Self.FK_Product_ProductType">
+            <End Role="ProductType" EntitySet="ProductType" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductProvaiderOrder_Product" Association="Self.FK_ProductProvaiderOrder_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductProvaiderOrder" EntitySet="ProductProvaiderOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductProvaiderOrder_ProvaiderOrder" Association="Self.FK_ProductProvaiderOrder_ProvaiderOrder">
+            <End Role="ProvaiderOrder" EntitySet="ProvaiderOrder" />
+            <End Role="ProductProvaiderOrder" EntitySet="ProductProvaiderOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProvaiderOrder_Provaider" Association="Self.FK_ProvaiderOrder_Provaider">
+            <End Role="Provaider" EntitySet="Provaider" />
+            <End Role="ProvaiderOrder" EntitySet="ProvaiderOrder" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="fitness_kpModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Count" Type="Double" />
+          <Property Name="Price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="ProductTypeid" Type="Int32" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="photo" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProductType" Relationship="Self.FK_Product_ProductType" FromRole="Product" ToRole="ProductType" />
+          <NavigationProperty Name="ProductProvaiderOrder" Relationship="Self.FK_ProductProvaiderOrder_Product" FromRole="Product" ToRole="ProductProvaiderOrder" />
+        </EntityType>
+        <EntityType Name="ProductProvaiderOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProvaiderOrderid" Type="Int32" />
+          <Property Name="Productidid" Type="Int32" />
+          <Property Name="price" Type="Decimal" Precision="19" Scale="4" />
+          <Property Name="count" Type="Double" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_ProductProvaiderOrder_Product" FromRole="ProductProvaiderOrder" ToRole="Product" />
+          <NavigationProperty Name="ProvaiderOrder" Relationship="Self.FK_ProductProvaiderOrder_ProvaiderOrder" FromRole="ProductProvaiderOrder" ToRole="ProvaiderOrder" />
+        </EntityType>
+        <EntityType Name="ProductType">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Product" Relationship="Self.FK_Product_ProductType" FromRole="ProductType" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Provaider">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Title" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Units" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="Logo" Type="String" MaxLength="100" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProvaiderOrder" Relationship="Self.FK_ProvaiderOrder_Provaider" FromRole="Provaider" ToRole="ProvaiderOrder" />
+        </EntityType>
+        <EntityType Name="ProvaiderOrder">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Number" Type="Int32" />
+          <Property Name="Provaiderid" Type="Int32" />
+          <Property Name="Data" Type="DateTime" Precision="0" />
+          <Property Name="total" Type="Decimal" Precision="19" Scale="4" />
+          <NavigationProperty Name="ProductProvaiderOrder" Relationship="Self.FK_ProductProvaiderOrder_ProvaiderOrder" FromRole="ProvaiderOrder" ToRole="ProductProvaiderOrder" />
+          <NavigationProperty Name="Provaider" Relationship="Self.FK_ProvaiderOrder_Provaider" FromRole="ProvaiderOrder" ToRole="Provaider" />
+        </EntityType>
+        <Association Name="FK_Product_ProductType">
+          <End Role="ProductType" Type="Self.ProductType" Multiplicity="1" />
+          <End Role="Product" Type="Self.Product" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductType">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="Product">
+              <PropertyRef Name="ProductTypeid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductProvaiderOrder_Product">
+          <End Role="Product" Type="Self.Product" Multiplicity="0..1" />
+          <End Role="ProductProvaiderOrder" Type="Self.ProductProvaiderOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProductProvaiderOrder">
+              <PropertyRef Name="Productidid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductProvaiderOrder_ProvaiderOrder">
+          <End Role="ProvaiderOrder" Type="Self.ProvaiderOrder" Multiplicity="0..1" />
+          <End Role="ProductProvaiderOrder" Type="Self.ProductProvaiderOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProvaiderOrder">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProductProvaiderOrder">
+              <PropertyRef Name="ProvaiderOrderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProvaiderOrder_Provaider">
+          <End Role="Provaider" Type="Self.Provaider" Multiplicity="0..1" />
+          <End Role="ProvaiderOrder" Type="Self.ProvaiderOrder" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Provaider">
+              <PropertyRef Name="id" />
+            </Principal>
+            <Dependent Role="ProvaiderOrder">
+              <PropertyRef Name="Provaiderid" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="fitness_kpEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Product" EntityType="Self.Product" />
+          <EntitySet Name="ProductProvaiderOrder" EntityType="Self.ProductProvaiderOrder" />
+          <EntitySet Name="ProductType" EntityType="Self.ProductType" />
+          <EntitySet Name="Provaider" EntityType="Self.Provaider" />
+          <EntitySet Name="ProvaiderOrder" EntityType="Self.ProvaiderOrder" />
+          <AssociationSet Name="FK_Product_ProductType" Association="Self.FK_Product_ProductType">
+            <End Role="ProductType" EntitySet="ProductType" />
+            <End Role="Product" EntitySet="Product" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductProvaiderOrder_Product" Association="Self.FK_ProductProvaiderOrder_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ProductProvaiderOrder" EntitySet="ProductProvaiderOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductProvaiderOrder_ProvaiderOrder" Association="Self.FK_ProductProvaiderOrder_ProvaiderOrder">
+            <End Role="ProvaiderOrder" EntitySet="ProvaiderOrder" />
+            <End Role="ProductProvaiderOrder" EntitySet="ProductProvaiderOrder" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProvaiderOrder_Provaider" Association="Self.FK_ProvaiderOrder_Provaider">
+            <End Role="Provaider" EntitySet="Provaider" />
+            <End Role="ProvaiderOrder" EntitySet="ProvaiderOrder" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище fitness_kpModelContainer" CdmEntityContainer="fitness_kpEntities">
+          <EntitySetMapping Name="Product">
+            <EntityTypeMapping TypeName="fitness_kpModel.Product">
+              <MappingFragment StoreEntitySet="Product">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Count" ColumnName="Count" />
+                <ScalarProperty Name="Price" ColumnName="Price" />
+                <ScalarProperty Name="ProductTypeid" ColumnName="ProductTypeid" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="photo" ColumnName="photo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductProvaiderOrder">
+            <EntityTypeMapping TypeName="fitness_kpModel.ProductProvaiderOrder">
+              <MappingFragment StoreEntitySet="ProductProvaiderOrder">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ProvaiderOrderid" ColumnName="ProvaiderOrderid" />
+                <ScalarProperty Name="Productidid" ColumnName="Productidid" />
+                <ScalarProperty Name="price" ColumnName="price" />
+                <ScalarProperty Name="count" ColumnName="count" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductType">
+            <EntityTypeMapping TypeName="fitness_kpModel.ProductType">
+              <MappingFragment StoreEntitySet="ProductType">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Provaider">
+            <EntityTypeMapping TypeName="fitness_kpModel.Provaider">
+              <MappingFragment StoreEntitySet="Provaider">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Title" ColumnName="Title" />
+                <ScalarProperty Name="Units" ColumnName="Units" />
+                <ScalarProperty Name="Logo" ColumnName="Logo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProvaiderOrder">
+            <EntityTypeMapping TypeName="fitness_kpModel.ProvaiderOrder">
+              <MappingFragment StoreEntitySet="ProvaiderOrder">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="Number" ColumnName="Number" />
+                <ScalarProperty Name="Provaiderid" ColumnName="Provaiderid" />
+                <ScalarProperty Name="Data" ColumnName="Data" />
+                <ScalarProperty Name="total" ColumnName="total" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
