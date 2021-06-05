@@ -50,7 +50,7 @@ https://github.com/baha1411/Kursovaya
 
 ![Use case](./img/UseCase.PNG)
 ### Диаграмма ER:
-![ERD диаграмма](./img/man.PNG)
+![ER диаграмма](./img/man.PNG)
 ### Диаграмма Состояний:
 ![State Mashine](./img/StateMashine.PNG)
 ### CСпецификация прецентдентов Use Case:
@@ -62,7 +62,7 @@ https://github.com/baha1411/Kursovaya
 
 ### Приложение было разработанно в Visual Studio, пример работы программы:
 ### Главное окно:
-![MainWindow](./img/MainWindow.png)
+![MainWindow](./img/MainWindow.PNG)
 #### Прмер кода разметки страницы:
 ```xml
  <Grid>
@@ -509,10 +509,60 @@ namespace Fitness_Center
 
 
 ### Окно добавления и редактирования заказов:
-![EditorderWindow](./img/EditOrder.png)
+![EditorderWindow](./img/EditOrder.PNG)
 #### Прмер кода разметки страницы редактирования заказов:
 ```xml
-      
+
+     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="auto"/>
+            <ColumnDefinition  Width="*"/>
+        </Grid.ColumnDefinitions>
+
+        <Image 
+            
+            Height="280" 
+            Width="280" 
+            Source="{Binding CurrentService.ImagePreview}" />
+
+        <StackPanel Margin="5" Grid.Column="1">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                    <RowDefinition  Height="*"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Margin="25" Grid.Row="0" Orientation="Horizontal">
+                    <Label  Content="Наименование товара"/>
+                    <TextBox Width="60" Text="{Binding CurrentService.Title}"/>
+                    <Label Content="Количество"/>
+                    <TextBox Width="60" Text="{Binding CurrentService.Count}"/>
+                    
+                </StackPanel>
+                <StackPanel Margin="25" Grid.Row="1" Orientation="Horizontal">
+                    <Label Content="Цена"/>
+                    <TextBox Width="60" Text="{Binding CurrentService.Price}"/>
+                    <Label Content="Описание"/>
+                    <TextBox Width="60" Text="{Binding CurrentService.Description}"/>
+                    <ComboBox
+                HorizontalAlignment="left"
+                ItemsSource="{Binding WorkList}"
+                SelectedItem="{Binding CurrentService.ProductType}">
+                        <ComboBox.ItemTemplate>
+                            <DataTemplate>
+                                <Label Content="{Binding Title}"/>
+                            </DataTemplate>
+                        </ComboBox.ItemTemplate>
+                    </ComboBox>
+                </StackPanel>
+            </Grid>
+            <Button Content="Картинка" Margin="7" HorizontalAlignment="left" Click="GetImageButton_Click"></Button>
+            <Button Content="Сохранить" Margin="7" HorizontalAlignment="left" Click="SaveButton_Click"></Button>
+        </StackPanel>
+    </Grid>
+ 
 ```
 #### Пример Логики страницы редактирования заказов:
 
