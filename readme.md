@@ -48,7 +48,7 @@ https://github.com/baha1411/Kursovaya
 
 ### Диаграмма Use Case:
 
-![Use case](./img/Use Case.PNG)
+![Use case](./img/UseCase.PNG)
 ### Диаграмма ER:
 ![ERD диаграмма](./img/man.PNG)
 ### Диаграмма Состояний:
