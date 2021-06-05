@@ -48,11 +48,11 @@ https://github.com/baha1411/Kursovaya
 
 ### Диаграмма Use Case:
 
-![Use case](./img/UseCase.png)
+![Use case](./img/Use Case.PNG)
 ### Диаграмма ER:
-![ER диаграмма](./img/man.png)
+![ERD диаграмма](./img/man.PNG)
 ### Диаграмма Состояний:
-![State Mashine](./img/StateMashine.png)
+![State Mashine](./img/StateMashine.PNG)
 ### CСпецификация прецентдентов Use Case:
 ![Спецификация 1](./img/SpecificationUseCase1.png)
 ![Спецификация 2](./img/SpecificationUseCase2.png)
